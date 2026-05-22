@@ -1,0 +1,81 @@
+# ==========================================
+# DDR Report Generator - Git Ignore Configuration
+# ==========================================
+
+# --- Python Environment & Caches ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Virtual Environments & Secrets ---
+.venv/
+venv/
+ENV/
+env/
+.env
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- PDF Inputs (Unwanted / Sensitive Source Documents) ---
+*.pdf
+**/*.pdf
+
+# --- Compiled Reports & Dynamic Outputs (Word Documents) ---
+*.docx
+**/*.docx
+DDR_Report_*.docx
+!templates/*.docx
+
+# --- Dynamically Generated Charts & Images ---
+*.png
+!assets/*.png
+!**/assets/*.png
+severity_chart.png
+
+# --- Pipeline Intermediate Extraction Caches ---
+*.json
+**/*.json
+!src/**/*.json
+!config/**/*.json
+!templates/**/*.json
+
+# --- IDEs & Code Editors ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.pydevproject
+.settings/
+
+# --- Operating System Files ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Local Log Files ---
+*.log
+logs/

@@ -1,4 +1,4 @@
-# 🏗️ DDR Report Generator — AI-Powered Building Diagnostic Reports
+# DDR Report Generator — AI-Powered Building Diagnostic Reports
 
 An end-to-end industrial-grade Python pipeline that reads raw **Inspection** and **Thermal** PDF reports and automatically generates a highly professional, 30+ page **Detailed Diagnostic Report (DDR)** in Microsoft Word (`.docx`) format. 
 
@@ -6,25 +6,7 @@ Built with a **FastAPI** backend + **Streamlit** frontend + **GPT-4o mini** text
 
 ---
 
-## ✨ What's Enhanced (Premium Industrial Standard)
-
-Compared to generic AI-generated documents, this platform outputs documents matching professional forensic engineering inspections:
-
-| Feature Area | Before | After (Premium Elite Standard) |
-| :--- | :--- | :--- |
-| **Document Length** | ~5 pages | **30+ pages** (Dynamic, non-page-wise section growth) |
-| **Visual-Thermal Alignment** | Randomly floating images | **Sleek Side-by-Side Tables** (Visual photo left, FLIR Thermal Map right) |
-| **Thermal Image Filtering** | Unwanted crosshairs & icons | **Filter Reticle Noise** (Ignores small overlays, extracts real $w, h \ge 300$ radiometric maps) |
-| **Checklist Formatting** | Text summaries | **Wingdings Checkbox Grids** (Color-coded Good/Moderate/Poor ticks ``) |
-| **Data Verification** | Raw generation | **3-Tier Checkpoint Validation** (Extractor, Linker, and Builder gates) |
-| **Figure Numbering** | Hallucinated static tags | **Dynamic Sequential Captions** (Automatically maps absolute indexes e.g., `Figure 1`) |
-| **Pathology Terminology** | Simple layperson words | **Expert Engineering Vocabulary** (Capillary draw, evaporative cooling patterns, etc.) |
-| **Rehabilitation Steps** | Generic advice | **Chemical Formulations** (Dr. Fixit polymer-modified mortars, mixing ratios, etc.) |
-| **Programmatic Charts** | None | **Matplotlib Severity Donut Charts** embedded in section centers |
-
----
-
-## 📸 System Overview
+## System Overview
 
 Our system decouples raw visual/thermal image sorting from the LLM, running it locally via Python coordinate boundaries. The LLM is then used as a highly specialized semantic engine for technical pathology writing.
 
@@ -37,17 +19,7 @@ Thermal Images.pdf ──┘         ▲
                       (Upload → Track → Download)
 ```
 
-### ⚙️ 5-Stage Orchestration Pipeline
 
-| Stage | Module Name | Core Mechanics |
-| :--- | :--- | :--- |
-| **Stage 1a** | `InspectionExtractor` | Parses property details & checklists using a **perfected horizontal two-column coordinate boundary parser** (splitting checklists via $y$-axis checks). |
-| **Stage 1b** | `ThermalExtractor` | Local image extraction. Filters out reticles ($width, height < 300$) and classifies remaining high-res images: **Thermal IR Map** ($y0 < 200$) vs. **Visual Photo** ($y0 \ge 200$), locking them page-by-page. |
-| **Stage 1c** | `ThermalAreaLinker` | Binds thermodynamic labels (`T1`, `T2`) to physical structural rooms using a **4-tier matching matrix** (Exact $\rightarrow$ Keyword $\rightarrow$ Row Alignment $\rightarrow$ Page Proximity). |
-| **Stage 4** | `DDRGenerator` | Context optimizer that feeds compressed JSON definitions into **GPT-4o-mini** (OpenAI JSON Mode), injecting technical pathology definitions and rehabilitation guidelines. |
-| **Stage 5** | `DocxBuilder` | Dynamic document assembly. Styles headers, embeds side-by-side tables, inserts dynamic Matplotlib donut charts, formats Wingdings checkbox grids, and sequentializes image captions. |
-
----
 
 ## 📁 Project Structure
 
@@ -145,29 +117,15 @@ OPENAI_API_KEY=sk-proj-yourActualOpenAiApiKeyHere...
 
 ## ▶️ Running the Platform
 
-### Method A: One-Click Automated Startup (Recommended)
-Our system includes a robust PowerShell orchestration script that automatically tests dependencies, sets environment encodings, and boots the backend and frontend servers in isolated shell processes.
+To launch the application, you run the backend service and the frontend web client concurrently.
 
-To launch the app instantly, run:
-```powershell
-.\start.ps1
-```
-* **FastAPI Backend Portal**: Launches at `http://localhost:8000`
-* **Streamlit Web Client UI**: Automatically opens your default browser at `http://localhost:8501`
-
----
-
-### Method B: Manual Startup (Two Separate Terminals)
-
-If you prefer starting processes manually:
-
-**Terminal 1 — Activate environment & start FastAPI server:**
+**Terminal 1 — Start the FastAPI backend:**
 ```powershell
 .\venv\Scripts\Activate.ps1
 uvicorn server:app --reload --port 8000
 ```
 
-**Terminal 2 — Activate environment & start Streamlit UI:**
+**Terminal 2 — Start the Streamlit frontend client:**
 ```powershell
 .\venv\Scripts\Activate.ps1
 streamlit run app.py --server.port 8501
@@ -175,25 +133,7 @@ streamlit run app.py --server.port 8501
 
 ---
 
-### Method C: Command-Line Core (No UI Interface)
-You can run the entire compilation pipeline programmatically without booting the server or opening a web browser:
-
-```powershell
-python pipeline.py --inspection "Sample Report.pdf" --thermal "Thermal Images.pdf" --output DDR_Report.docx
-```
-
-**Development Flags:**
-```powershell
-# Skip OpenAI API Calls (Perfect for offline extraction testing)
-python pipeline.py --inspection "Sample Report.pdf" --thermal "Thermal Images.pdf" --skip-vision
-
-# Define a custom output path
-python pipeline.py --inspection "Sample Report.pdf" --thermal "Thermal Images.pdf" --output "d:\MyReports\Completed_DDR.docx"
-```
-
----
-
-## 🖥️ Using the Web Interface
+## Using the Web Interface
 
 1. Navigate your web browser to `http://localhost:8501`.
 2. **Upload Sources**:
@@ -206,23 +146,3 @@ python pipeline.py --inspection "Sample Report.pdf" --thermal "Thermal Images.pd
    * View linked thermal maps and calculated anomalies.
    * Inspect color-coded severity tables.
 6. **Trigger Export**: Click the **📥 Download DDR Report (.docx)** button to save the professional document locally.
-
----
-
-## 🩺 Troubleshooting Common Windows Issues
-
-* **Execution Policy Blocked on `start.ps1`**:
-  If PowerShell returns an execution policy error, grant standard local permission by running:
-  ```powershell
-  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-  ```
-* **Unicode Encoding Errors in Command Output**:
-  If the Windows PowerShell terminal crashes due to character encoding, set UTF-8 defaults:
-  ```powershell
-  $env:PYTHONIOENCODING="utf-8"
-  ```
-* **FastAPI Port Conflicts**:
-  If port `8000` is occupied, change the uvicorn launch command:
-  ```powershell
-  uvicorn server:app --reload --port 8080
-  ```
